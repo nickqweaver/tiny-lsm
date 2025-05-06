@@ -1,0 +1,4 @@
+age, 42 
+is_cool, true 
+loves_bacon, true 
+strval, "str" 
