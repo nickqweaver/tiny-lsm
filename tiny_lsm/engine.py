@@ -1,4 +1,4 @@
-from storage_engine.memtable import MemTable
+from tiny_lsm.memtable import MemTable
 
 
 # need to dump to new sstable when capacity is hit
