@@ -1,6 +1,6 @@
 import threading
 
-from storage_engine.engine import Engine
+from tiny_lsm.engine import Engine
 
 
 def split_args(args):
