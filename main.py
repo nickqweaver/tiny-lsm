@@ -1,19 +1,28 @@
 import threading
+from typing import Optional, Tuple
 
 from tiny_lsm.engine import Engine
 
 
-def split_args(args):
+def split_args(args) -> Tuple[str, str, Optional[str]]:
     cli_args = args.split(" ")
 
     action, payload = cli_args
 
-    key, value = payload.split("%")
+    kv = payload.split("%")
+
+    key = kv[0]
+
+    value = None
+    try:
+        value = kv[1]
+    except IndexError:
+        value = None
 
     uppercase = action.upper()
 
-    if uppercase not in ("PUT", "GET"):
-        raise ValueError("Invalid commands, please use PUT or GET")
+    if uppercase not in ("PUT", "GET", "DELETE"):
+        raise ValueError("Invalid commands, please use PUT, GET or DELETE")
 
     return (uppercase, key, value)
 
@@ -35,16 +44,22 @@ def main():
         elif cmd:
             # Here, parse and execute your command
             print(f"Received: {cmd}")
+            tokens = cmd.split()
+
+            key = tokens[1]
+            # Multi line value
+            value = " ".join(tokens[2:])
             action, key, value = split_args(cmd)
-            print(action, key, value)
             if action == "PUT":
                 engine.put(key, value)
                 print(f"Added {key}, {value} successfully")
 
             if action == "GET":
                 value = engine.get(key)
-                print(value)
+                print(f"GET {key} -> {value}")
 
+            if action == "DELETE":
+                print("Deleting item")
         # else: ignore empty
 
 

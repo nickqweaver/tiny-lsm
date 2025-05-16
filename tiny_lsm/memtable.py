@@ -2,9 +2,9 @@ class MemTable:
     def __init__(self, capacity):
         self.__store = {}
         # Capacity would typically be measured in bytes but we're going to measure number of k/v pairs
-        self._capacity = capacity
+        self.capacity = capacity
 
-    def _sort(self):
+    def _to_list(self):
         def sort_by_key(value):
             key = value[0]
             return key
@@ -27,10 +27,10 @@ class MemTable:
         return self.__store.get(key)
 
     def is_full(self):
-        return self.size > self._capacity
+        return self.size > self.capacity
 
-    def flush(self):
-        payload = self._sort()
+    def empty(self):
+        payload = self._to_list()
         self.__store = {}
 
         return payload
