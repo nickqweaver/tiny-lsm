@@ -81,7 +81,6 @@ class Engine:
 
         k = str(key)
         if hit:
-            print("cache hit", k)
             return hit
 
         # Look at the SS tables
