@@ -66,7 +66,6 @@ class Engine:
         return matched_key_value
 
     def put(self, key, value):
-        # If full before adding we will flush then add
         k = str(key)
 
         self.__memtable.set(k, value)
