@@ -4,7 +4,6 @@ from pathlib import Path
 from tiny_lsm.memtable import MemTable
 
 
-# Before compaction maybe we will handle reads
 class Engine:
     _ss_table_level = 0
 
